@@ -27,6 +27,7 @@ let d = (a--, b + a);
 console.log("4) d =", d);
 
 d = void (c = a + b); 
+// void 연산자 (평가/실행 후 undefined 반환)
 console.log("5) a =", a, ", b =", b, ", c =", c, ", d =", d); 
 // Assignment to constant variable.
 // const => let으로 바꾸기(c, d)
