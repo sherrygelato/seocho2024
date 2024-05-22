@@ -60,3 +60,40 @@ outStr = x === 1 ? 'one' : x === 2 ? 'two' : x === 3 ? 'three' : 'etc';
 console.log(outStr);
 
 console.log('========== 3항 연산자 연습');
+
+// 4. while 반복문
+
+let i = 5;
+while ( i > 0) {
+    console.log('i : ', i);
+    i = i - 1; // 이거 안하면 무한루프
+}
+
+console.log('========== while 반복문 연습 1');
+
+i = 5;
+while ( i-- > 0) {
+    // i  > 0 비교 후 -1 하니까 콘솔은 i-1이 찍힘
+    console.log('i : ', i);
+}
+
+console.log('========== while 반복문 연습 2');
+
+i = 5;
+while (i-- > 0) console.log('i : ', i);
+
+console.log('========== while 반복문 연습 3');
+
+i = 5;
+while ( --i > 0) {
+    console.log('i : ', i);
+}
+
+console.log('========== while 반복문 연습 4');
+
+i = 5;
+do {
+    console.log('i : ', i);
+} while (i-- > 0);
+
+console.log('========== do-while 반복문 연습');
