@@ -97,3 +97,45 @@ do {
 } while (i-- > 0);
 
 console.log('========== do-while 반복문 연습');
+
+// 배열 출력하기
+// const arr = null;
+const arr = [10, 20, 30, 40, 50];
+for (let i = 0; i < arr?.length; i++) {
+    console.log(`arr[${i}] : ${arr[i]}`);
+}
+
+console.log('========== for 반복문 연습 1 : 배열 출력');
+
+// 커서와 포인터의 차이
+// 커서는 한번 읽으면 다음 것으로 옮김
+// 카운터는 커서 방식 : 데이터(DB) 읽는 방식
+
+for (const t of arr) { // of는 cursor
+    console.log(`t : ${t}`); // 자동으로 포인터가 +1씩 움직임
+}
+
+// const t of arr
+// {
+//     const t = arr[0]; // 계속 반복되고 있는 중
+// }
+
+console.log('========== for 반복문 연습 2 : 배열 출력 a of arr');
+
+const User = {
+    id : 1,
+    name : 'hong'
+}
+for (const p in User) { // p of ['id', 'name']
+    console.log(`User[${p}] : ${User[p]}`);
+}
+
+console.log('========== for 반복문 연습 3 : 배열 출력 a in obj');
+
+const WEEK_NAMES = '일월화수목금토';
+for (const w of WEEK_NAMES) {
+    console.log(`${w} : ${w}`);
+}
+
+console.log('========== for 반복문 연습 4 : 문자열 출력 a of str');
+
