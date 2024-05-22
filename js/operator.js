@@ -6,13 +6,13 @@ for (let i = 0; i < 10; i++) { // 예전엔 이렇게 썼지만
     console.log(i);
 }
 
-console.log('==========');
+console.log('========== i++');
 
 for (let i = 0; i < 10; i = i + 1) { // 요즘은 이렇게 씀
     console.log(i);
 }
 
-console.log('==========');
+console.log('========== i = i + 1');
 
 let c = (a++, b++); // ++은 return보다 늦고, 최근들어 잘 쓰지 않음
 // let c = ((a = a + 1), (b = b + 1));
@@ -32,7 +32,7 @@ console.log('4) d =', d);
 
 console.log('5) e =', e);
 
-console.log('==========');
+console.log('========== a++, ++b, a--');
 
 d = void (c = a + b); 
 // void 연산자 (평가/실행 후 undefined 반환)
