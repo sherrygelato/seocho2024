@@ -152,3 +152,65 @@ for (const t of arr) {
 }
 
 console.log('========== for 반복문 연습 6 : continue');
+
+const cart = {
+    user : User,
+    items : [
+        { id: 200, itemName: '신라면'},
+        { id: 300, itemName: '너구리'},
+    ]
+}
+console.log('cartOwner =', cart.user.name);
+
+for (const cc in cart) {
+    if ( cc === 'user') {
+        for (const p in cart[cc]) {
+            console.log(`p : ${p}, ${cart[cc]}`);
+        }
+    } else if (cc === 'items') {
+        for (const item in cart[cc]) {
+            console.log(item.itemName);
+        }
+    }
+}
+
+console.log('========== for 반복문 연습 7');
+
+let total = 0;
+function add(x, y) {
+    total = x + y;
+}
+
+const 국어 = 80;
+const 수학 = 90;
+// const total = add(국어, 수학);
+add(국어, 수학);
+console.log('total =', total);
+
+function checkScore() {
+    if (국어 > 70) {
+        return '합격';
+    } else if (수학 > 70) {
+        return '통과';
+    } else {
+        return '불합격';
+    }
+}
+console.log('60점짜리 코드 checkScore =', checkScore());
+
+function checkScore_complete() {
+    // 직관적, 클린
+    
+    if (국어 > 70) {
+        return '합격';
+    }
+    
+    if (수학 > 70) {
+        return '통과';
+    }
+
+    return '불합격';
+}
+console.log('프로 코드 checkScore_complete =', checkScore_complete());
+
+console.log('========== if문 연습 4');
