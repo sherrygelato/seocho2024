@@ -139,3 +139,16 @@ for (const w of WEEK_NAMES) {
 
 console.log('========== for 반복문 연습 4 : 문자열 출력 a of str');
 
+for (const t of arr) {
+    console.log(`t : ${t}`);
+    if (t > 2) break; // t가 2보다 크면 멈추기
+}
+
+console.log('========== for 반복문 연습 5 : break');
+
+for (const t of arr) {
+    if (t % 2 === 0) continue; // 참이면 뒷부분 생략
+    console.log(`t : ${t}`)
+}
+
+console.log('========== for 반복문 연습 6 : continue');
