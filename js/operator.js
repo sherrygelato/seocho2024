@@ -17,6 +17,10 @@ console.log('==========');
 let c = (a++, b++); // ++은 return보다 늦고, 최근들어 잘 쓰지 않음
 // let c = ((a = a + 1), (b = b + 1));
 // 오해를 불러일으키는 코드는 좋지 않은 코드다.
+// ==> a = a + 1; let c = b; b = b + 1;
+
+let e = (a++, ++b);
+// ==> a = a + 1; b = b + 1; let c = b;
 
 console.log('1) c =', c);
 console.log('2) a =', a);
@@ -26,8 +30,12 @@ let d = (a--, b + a);
 
 console.log('4) d =', d);
 
+console.log('5) e =', e);
+
+console.log('==========');
+
 d = void (c = a + b); 
 // void 연산자 (평가/실행 후 undefined 반환)
-console.log('5) a =', a, ', b =', b, ', c =', c, ', d =', d); 
+console.log('5) a =', a, ', b =', b, ', c =', c, ', d =', d, ', e =', e); 
 // Assignment to constant variable.
 // const => let으로 바꾸기(c, d)
