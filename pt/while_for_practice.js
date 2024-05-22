@@ -57,3 +57,26 @@ for (let j = 0; j < 100; j = j + 1) {
 }
 
 console.log('========== for 반복문 연습 4');
+
+for (let j = 0, sum = 0; j < 100; j = j + 1) {
+    sum = sum + j;
+}
+console.log('0부터 시작한 sum : ', sum);
+
+console.log('========== for 반복문 연습 5');
+
+sum = 0;
+for (let i = 0; i < 100; i++) {
+    sum = sum + (i + 1);
+}
+console.log('0부터 시작한 sum : ', sum);
+
+console.log('========== for 반복문 연습 6');
+
+sum = 0;
+for (let i = 1; i <= 100; i++) {
+    sum += i;
+}
+console.log('0부터 시작한 sum : ', sum);
+
+console.log('========== for 반복문 연습 7');
