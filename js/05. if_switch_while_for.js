@@ -199,7 +199,7 @@ function checkScore() {
 console.log('60점짜리 코드 checkScore =', checkScore());
 
 function checkScore_complete() {
-    // 직관적, 클린
+    // 직관적, 클린(간결)
     
     if (국어 > 70) {
         return '합격';
