@@ -67,3 +67,41 @@ console.log(addrCity);
 
 // rest 연산자 할당
 // spread 연산자 펼쳐줘(새로 생성)
+
+// 2024.05.23 thu
+function f() {
+    console.log('f() arguments = ', arguments);
+}
+f(1, 2, 33, 44);
+
+function f2(...args) {
+    console.log('f2() args = ', args);
+}
+f2(11, 22, 33);
+
+var f3 = function (...args) {
+    console.log('f3() args = ', args);
+}
+f3(9, 0);
+
+function f4() { return 1;} // 선언문만 있음
+var f5 = function () {}; // 함수표현식(선언+값), 함수 자체가 literal이 된 것
+const f6 = () => 1; // return하는 값도 있음
+
+const obj = {
+    id : 1,
+    fn1: function () { console.log(arguments)},
+}
+
+const {fn1} = obj;
+fn1(1, 2, 3) 
+
+// const { 
+//     fn1 : {name: nm},
+// } = obj;
+// console.log('name = ', name);
+
+var user1 = {id: 1, name: 'P', age: 33}
+const [k, v] = Object.entries(user1);
+console.log('user key =', k);
+console.log('user value =', v);
