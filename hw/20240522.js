@@ -81,5 +81,5 @@ console.log('+++++++++++ 연습문제 3 완료');
 // addPoints(0.34, 0.226)    // 0.566
 
 function addPoints(a, b) {
-
+    
 }

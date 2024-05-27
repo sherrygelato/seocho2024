@@ -4,14 +4,24 @@
 // user 객체를 받아서 id와 name을 출력하는 함수를 3개의 함수로 작성하시오.
 // (Function signature를 3개 이상으로 표현하기)
 
-
 // const hong = {id: 1, name: 'Hong'};
 // const lee = {id: 2, name: 'Lee'};
-// f1(hong);  f2
-// ⇒ 1, 'Hong'        console.log(id, name)
 
+const Hong = {id : 1, name : 'Hong'};
+const Lee = {id : 2, name : 'Lee'};
 
+function getUserInfo1(user) { console.log(`getUserInfo1 id = ${user.id}, name = ${user.name}`) };
+var getUserInfo2 = function (user) { console.log(`getUserInfo2 id = ${user.id}, name = ${user.name}`)};
+const getUserInfo3 = (user) => console.log(`getUserInfo3 id = ${user.id}, name = ${user.name}`);
 
+getUserInfo1(Hong);
+getUserInfo1(Lee);
+
+getUserInfo2(Hong);
+getUserInfo2(Lee);
+
+getUserInfo3(Hong);
+getUserInfo3(Lee);
 
 
 // // 연습문제 2
@@ -22,8 +32,9 @@
 // console.log(userInfo); 
 // // 출력결과: {id: 1, name: 'Hong', addr: 'Seoul'}
 
-
-
+const user = {id: 1, name: 'Hong', passwd: 'xxx', addr: 'Seoul'};
+const {passwd, ...userInfo} = user;
+console.log('userInfo = ', userInfo); 
 
 
 // // 연습문제 3
@@ -34,3 +45,7 @@
 // const [ [{id:id1}], [{id:id2}, {id:id3} ] ] = arr;
 // console.log(id1, id2, id3); 
 // // 출력결과: 1 2 3
+
+const arr = [[{id: 1}], [{id:2}, {id: 3}]];
+const [ [{id:id1}], [{id:id2}, {id:id3} ] ] = arr;
+console.log(`id1 = ${id1}, id2 = ${id2}, id3 = ${id3}`);
