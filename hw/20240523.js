@@ -10,8 +10,13 @@
 const Hong = {id : 1, name : 'Hong'};
 const Lee = {id : 2, name : 'Lee'};
 
-function getUserInfo1(user) { console.log(`getUserInfo1 id = ${user.id}, name = ${user.name}`) };
-var getUserInfo2 = function (user) { console.log(`getUserInfo2 id = ${user.id}, name = ${user.name}`)};
+function getUserInfo1(user) { 
+    console.log(`getUserInfo1 id = ${user.id}, name = ${user.name}`); 
+}
+
+var getUserInfo2 = function (user) { 
+    console.log(`getUserInfo2 id = ${user.id}, name = ${user.name}`);
+}
 const getUserInfo3 = (user) => console.log(`getUserInfo3 id = ${user.id}, name = ${user.name}`);
 
 getUserInfo1(Hong);
@@ -22,6 +27,8 @@ getUserInfo2(Lee);
 
 getUserInfo3(Hong);
 getUserInfo3(Lee);
+
+console.log('+++++++++++ 연습문제 1 완료');
 
 
 // // 연습문제 2
@@ -34,7 +41,17 @@ getUserInfo3(Lee);
 
 const user = {id: 1, name: 'Hong', passwd: 'xxx', addr: 'Seoul'};
 const {passwd, ...userInfo} = user;
-console.log('userInfo = ', userInfo); 
+console.log('userInfo = ', userInfo);
+
+console.log('+++++++++++ 연습문제 2 완료');
+
+function p66() {
+    const {passwd, ...userInfo} = user;
+    console.log('userInfo = ', userInfo);
+}
+p66();
+
+console.log('+++++++++++ 연습문제 2 문제풀이');
 
 
 // // 연습문제 3
@@ -47,5 +64,18 @@ console.log('userInfo = ', userInfo);
 // // 출력결과: 1 2 3
 
 const arr = [[{id: 1}], [{id:2}, {id: 3}]];
-const [ [{id:id1}], [{id:id2}, {id:id3} ] ] = arr;
+// const [ [{id:id1}], [{id:id2}, {id:id3} ] ] = arr;
 console.log(`id1 = ${id1}, id2 = ${id2}, id3 = ${id3}`);
+
+console.log('+++++++++++ 연습문제 2 완료');
+
+function p67() {
+    const arr = [[{id: 1}], [{id:2}, {id: 3}]];
+    // const [[id1], [id2, id3]] = arr;
+    const { id } = id1;
+    const [[{id : id1}], [id2, id3]] = arr;
+    console.log(`id1 = ${id1}, id2 = ${id2}, id3 = ${id3}`);
+}
+p67();
+
+console.log('+++++++++++ 연습문제 3 문제풀이');
