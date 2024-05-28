@@ -65,6 +65,14 @@ console.log('+++++++++++ 연습문제 2 문제풀이');
 
 const arr = [[{id: 1}], [{id:2}, {id: 3}]];
 // const [ [{id:id1}], [{id:id2}, {id:id3} ] ] = arr;
+let id_1 = arr[0][0].id;
+let id_2 = arr[1][0].id;
+let id_3 = arr[1][1].id;
+console.log('🚀>>  id_1:', id_1);
+console.log('🚀>>  id_2:', id_2);
+console.log('🚀>>  id_3:', id_3);
+
+const [[{id: id1}], [{id: id2}, {id: id3}]] = arr;
 console.log(`id1 = ${id1}, id2 = ${id2}, id3 = ${id3}`);
 
 console.log('+++++++++++ 연습문제 2 완료');
@@ -73,7 +81,7 @@ function p67() {
     const arr = [[{id: 1}], [{id:2}, {id: 3}]];
     // const [[id1], [id2, id3]] = arr;
     const { id } = id1;
-    const [[{id : id1}], [id2, id3]] = arr;
+    const [[{id: id1}], [{id: id2}, {id: id3}]] = arr;
     console.log(`id1 = ${id1}, id2 = ${id2}, id3 = ${id3}`);
 }
 p67();
