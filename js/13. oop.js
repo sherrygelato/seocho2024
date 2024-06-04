@@ -22,13 +22,13 @@ const obj = {
 }
 obj.bark(); // obj Bark!!!
 
-class Dog extends Animal { 
+export class Dog extends Animal { 
 	bark() {
 		console.log('Bow wow!!!'); // 부모에게 상속받은 내용 외 다른 부분만 재정의
 	}
 }
 
-class Cat extends Animal {
+export default class Cat extends Animal {
 	#age = 10; // private 외부에서 접근 할 수 없다, 다른 말로 캡슐화
 	bark() {
 		console.log('Miao', this.#age, this.name);
