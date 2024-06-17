@@ -439,3 +439,62 @@ const instance4 : NumericGrade = new VagueGrade();
 // 실제 타입 : number | string 부모의 타입으로 가져옴
 instance4.value;
 
+
+// ==========================================================================
+// p399 연습문제
+// 학생과 전학생이 있다. 모든 학생은 급식을 먹을 수 있지만, 청소에서는 전학생은 제외된다.
+// 위 상황을 객체지향으로 작성하시오.
+// (전학생은 학생의 모든 속성을 갖으며, 함수는 급식과 청소 두 가지가 외부에 있다)
+
+class Student1 {
+    name!: string;
+
+    schoolMeal1() {
+        console.log(`${name}을 포함한 모든 학생은 급식을 먹습니다.`);
+    }
+
+    cleaning1() {
+        console.log(`전학생이 아닌 모든 학생은 청소를 합니다.`);
+    }
+}
+
+class TransferStudent1 extends Student1 {
+
+    cleaning1() {
+        throw new Error(`전학생인 ${name}은 청소에서 제외됩니다.`);
+    }
+
+}
+
+/////////////////
+
+class Student2 {
+    name!: string;
+}
+
+class TransferStudent2 extends Student2 {
+
+}
+
+function cleaning2(student : Student2) {
+    if (typeof student === typeof TransferStudent2)
+        console.log(`전학생이 아닌 모든 학생은 청소를 합니다.`);
+}
+
+function schoolMeal2(student : Student2) {
+    console.log(`${name}을 포함한 모든 학생은 급식을 먹습니다.`);
+}
+
+let student_a: Student2 = {name: '#학생#'};
+let student_b: TransferStudent2 = {name: '@전학생@'};
+
+cleaning2(student_a);
+cleaning2(student_b);
+
+schoolMeal2(student_a);
+schoolMeal2(student_b);
+
+
+// ==========================================================================
+// convariance, contravariance
+// oop 상속, 다양성 관계
