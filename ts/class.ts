@@ -496,5 +496,34 @@ schoolMeal2(student_b);
 
 
 // ==========================================================================
-// convariance, contravariance
-// oop 상속, 다양성 관계
+// 추상 클래스 (Abstract Class)
+// 일부 메서드를 구현하지 않고 대신 하위 클래스가 해당 메서드를 제공할 것을 예상하고 기본 클래스를 만드는 방법이 유용할 수 있음
+
+abstract class School {
+    readonly name : string;
+
+    constructor(name : string){ // 구현부
+        this.name = name; // readonly라서 생성자에서만 수정 가능
+    }
+
+    abstract getStudentTypes() : string[]; // 구현부는 없고 정의만
+}  // School 클래스와 getStudentTypes 메서드는 abstract로 표시됨
+
+
+class Preschool extends School {
+    getStudentTypes(){
+        return ["preshooler"];
+    }
+}
+class Absence extends School {
+    getStudentTypes(): string[] {
+        throw new Error("Method not implemented.");
+    } // 없으면 에러
+} // 하위 클래스인 Preschool과 Absence는 getStudentTypes를 구현해야 함.
+// Error : Non-abstract class 'Absence' does not implement all abstract members of 'School'
+//Non-abstract class 'Absence' does not implement inherited abstract member 'getStudentTypes' from class 'School'.
+
+let school : School;
+school = new Preschool('Sunnyside');
+// school = new School('Cloudy'); // 구현부가 없기 때문에 인스턴스 생성 불가
+// Error : Cannot create an instance of an abstract class.

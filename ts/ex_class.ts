@@ -20,7 +20,7 @@ class Student {
 }
 
 class TransferStudent extends Student {
-    disTransfer = true;
+    didTransfer = true; // Student와 TransferStudent 비교 위해 넣은 것
 
     청소() {
         throw new Error(`전학생인 ${this.name}은 청소에서 제외됩니다.`);
