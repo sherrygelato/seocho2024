@@ -71,3 +71,8 @@ button:focus-visible {
   /* font-size: 0.6rem; */
   font-size: 0.8em;
 }
+
+h1:hover{
+  color: blue;
+  text-decoration: underline;
+}

@@ -9,18 +9,30 @@ function App() {
   // 값이 바뀌면 리액트가 알아서 바꿔준다
 
   const plusCount = () => setCount(count + 1);
+  // const plusCount = () => setCount((count) => count + 1);
+
+
+  // let didLogin = true;
+  // const toggleLogin = () => {
+  //   didLogin = !didLogin;
+  // }
+  const [didLogin, setDidLogin] = useState(true)
+  const toggleLogin = () => {
+    setDidLogin(!didLogin);
+  }
 
   return (
     <>
       <div>
-        <Hello name="sherrygelato" age={33} plusCount={plusCount} />
+        {didLogin && <Hello name="sherrygelato" age={33} plusCount={plusCount} />}
         {/* <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a> */}
-        <button onClick={plusCount}>plus count</button>
+        {/* <button onClick={plusCount}>plus count</button> */}
+        <button onClick={toggleLogin}>toggle {didLogin ? 'Logined' : 'Not Logined'}</button>
       </div>
       {/* <h1>Vite + React + Sherrygelato - App.jsx 파일 입니다.</h1> */}
       <div className="card">

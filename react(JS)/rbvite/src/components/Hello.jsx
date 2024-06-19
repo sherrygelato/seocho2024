@@ -9,6 +9,12 @@
 //   children: PropTypes.func,
 // }
 
+const style = {
+    cousor: 'pointer',
+}
+
 export default function Hello(props) {
-    return <h1><div onClick={props.plusCount}>Hello</div>, {props.name}!, <small className='font-sm'>age: {props.age}</small></h1>;
+    return <h1 onClick={props.plusCount} style={style}>Hello, {props.name}!, <small className='font-sm' style={{
+        'text-decoration': 'solid'
+    }}>age: {props.age}</small></h1>;
 }
