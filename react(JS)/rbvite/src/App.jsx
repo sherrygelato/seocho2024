@@ -24,7 +24,7 @@ function App() {
       </div>
       {/* <h1>Vite + React + Sherrygelato - App.jsx 파일 입니다.</h1> */}
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={plusCount}>
           count is {count}
         </button>
         {/* <p>
