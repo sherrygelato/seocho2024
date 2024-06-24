@@ -1,33 +1,147 @@
+import { useState, useRef, useEffect } from 'react'
+
 import Login from "./Login";
 import Profile from "./Profile";
+import Button from "./atoms/Button";
+import Input from "./atoms/Input";
+// import SampleAtoms from "./atoms/SampleAtoms";
+import { FaRegEdit, FaRegTrashAlt, FaUndo, FaShoppingCart } from "react-icons/fa";
 
-export default function My({session: {loginUser, cart}, signOut}) {
-    return <>
-      {loginUser ? <Profile name={loginUser?.name} signOut={signOut}/> : <Login />}
-      {/* <strong className='text-green-500'>{loginUser?.name}</strong> logined
-      <button onClick={signOut} className='ml-3'>SignOut</button> */}
-      <div className="border">
-        <ul>
-          {cart.map(item => (
-            <li key={item.id}>
-              {item.name}
-              <small className="text-gray-300 ml-2">({item.price.toLocaleString()}원)</small>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>;
-  }
+export default function My({
+  session: { loginUser, cart },
+  signOut,
+  signIn,
+  removeItem,
+  addItem: addCartItem,
+  saveItem: saveCartItem,
+}) {
 
-// export default function My({session})
-//     // destructuring 때문에 props를 쓰지 않는다.
-//     return <><h2 className="text-green-500">USER NAME: {session.loginUser.name}</h2></>
-// }
+  const [isAdding, setIsAdding] = useState(false)
+  const [editingItem, setEditingItem] = useState(null);
+  const itemNameRef = useRef();
+  const itemPriceRef = useRef();
 
-// export default function My(props) {
-//     return <><h2 className="text-green-500">USER NAME: {props.session.loginUser.name}</h2></>
-// }
-//
-// function cartInfo(props) {
-//     return props.cart.map((item, i) => <li key={i}>{item.name}의 가격은 {item.price}원</li>)
-// }
+  const cancelAdding = (evt) => {
+    evt.preventDefault()
+    setIsAdding(false)
+  } 
+  const addItem = (evt) => {
+    evt.preventDefault()
+    const itemName = itemNameRef.current.value;
+    const itemPrice = itemPriceRef.current.value;
+
+    if (!itemName || !itemPrice) {
+      alert("상품명과 금액을 정확히 입력하세요");
+      itemName.current.focus();
+      return;
+    }
+
+    addCartItem(itemName, +itemPrice);
+    setIsAdding(false)
+  };
+
+  const editing = (itemId) => {
+    setEditingItem(cart.find((item) => item.id === itemId));
+  };
+  useEffect(() => {
+    if (editingItem) {
+      itemNameRef.current.value = editingItem.name;
+      itemPriceRef.current.value = editingItem.price;
+      itemNameRef.current.select();
+    }
+  }, [editingItem]);
+
+  const cancelEditing = () => {
+    setEditingItem(null);
+  };
+
+  const saveItem = (evt) => {
+    evt.preventDefault();
+    const itemName = itemNameRef.current.value;
+    const itemPrice = itemPriceRef.current.value;
+    console.log("🚀  itemName, itemPrice:", itemName, itemPrice);
+    if (!itemName || !itemPrice) {
+      alert("상품명과 금액을 정확히 입력하세요!");
+      itemNameRef.current.focus();
+      return;
+    }
+    saveCartItem(editingItem.id, itemName, +itemPrice);
+    setEditingItem(null);
+  };
+
+  return <>
+    {loginUser ? <Profile name={loginUser?.name} signOut={signOut}/> : <Login signIn={signIn} />}
+    <div className="my-5 border text-center">
+      <ul>
+        {cart?.length
+          ? cart.map((item) => (
+            <li key={item.id} className="flex justify-between border-b">
+                  <span className="text-xs text-gray-300">{item.id}</span>
+                  {editingItem?.id === item.id ? (
+                    <form className="m-2 flex gap-3 border border-green-300 p-3">
+                      <Input ref={itemNameRef} placeholder="상품명" />
+                      <Input
+                        ref={itemPriceRef}
+                        type="number"
+                        placeholder="금액"
+                      />
+                      <Button
+                        text={<FaUndo />}
+                        onClick={cancelEditing}
+                        size="sm"
+                      />
+                      <Button
+                        text={<FaShoppingCart />}
+                        onClick={saveItem}
+                        type="primary"
+                        size="sm"
+                      />
+                    </form>
+                  ) : (
+                    <>
+                      <span className="text-xs text-gray-300">{item.id}</span>
+                      <strong>
+                        {item.name}
+                        <small className="ml-2 text-gray-500">
+                          ({item.price.toLocaleString()}원)
+                        </small>
+                      </strong>
+                      <div>
+                        <Button
+                          onClick={() => editing(item.id)}
+                          type="primary"
+                          text={<FaRegEdit />}
+                          size="xs"
+                          className="py-1"
+                        />
+                        <Button
+                          onClick={() => removeItem(item.id)}
+                          type="danger"
+                          text={<FaRegTrashAlt />}
+                          size="xs"
+                          className="py-1"
+                        />
+                      </div>
+                    </>
+                  )}
+              </li>
+            ))
+          : "장바구니가 비었습니다."}
+      </ul>
+      {isAdding ? <form className="m-2 ">
+          <Input ref={itemNameRef} placeholder="상품명" />
+          <Input ref={itemPriceRef}  placeholder="금액" />
+          <Button text={<FaUndo />} onClick={cancelAdding} size="sm" />
+            <Button
+              text={<FaShoppingCart />}
+              onClick={addItem}
+              type="primary"
+              size="sm"
+            />
+        </form> : <Button onClick={() => setIsAdding(true)} text="+ 상품추가" className="mt-5" />
+      }
+
+      {/* <SampleAtoms /> */}
+    </div>
+  </>;
+}

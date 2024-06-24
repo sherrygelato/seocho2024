@@ -6,6 +6,21 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer components {
+  .btn {
+    @apply m-1 rounded-lg bg-slate-500 px-2 text-white hover:bg-slate-900;
+  }
+
+  .btn-danger {
+    @apply m-1 rounded-lg bg-red-500 px-2 text-white hover:bg-red-900;
+  }
+
+  .btn-primary {
+    @apply m-1 rounded-lg bg-blue-500 px-2 text-white hover:bg-blue-900;
+  }
+}
+
+/* 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -77,10 +92,10 @@ button:focus-visible {
 
 .font-sm {
   /* font-size: 0.6rem; */
-  font-size: 0.8em;
+  /* font-size: 0.8em;
 }
 
 h1:hover{
   color: blue;
   text-decoration: underline;
-}
+} */
