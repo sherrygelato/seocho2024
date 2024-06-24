@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 
 import Login from "./Login";
 import Profile from "./Profile";
@@ -43,6 +43,10 @@ export default function My({
   const editing = (itemId) => {
     setEditingItem(cart.find((item) => item.id === itemId));
   };
+
+  // Dom 다 그려지고 나서 네가 수행해
+  // defendency array [editingItem]가 변경 되었을 때만
+  // defendency array가 []면 1회만 실행
   useEffect(() => {
     if (editingItem) {
       itemNameRef.current.value = editingItem.name;
@@ -69,8 +73,47 @@ export default function My({
     setEditingItem(null);
   };
 
+  // test useEffect
+  // Timer
+  const [time, setTime] = useState(
+    Math.round(new Date().getTime() / 1000) % 1000,
+  );
+  useEffect(() => {
+    const intl = setInterval(() => {
+      // console.log("time=", time);
+      setTime((time) => time + 1);
+    }, 1000);
+
+    return () => {
+      console.log("🚀  intl clear!!");
+      clearInterval(intl);
+    };
+  }, []);
+
+  // Posts
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    console.log("fetch!!!");
+    fetch("https://jsonplaceholder.typicode.com/posts?userId=2", signal)
+      .then((res) => res.json())
+      .then((data) => setPosts(data));
+
+    return () => {
+      console.log("abort!!");
+      controller.abort();
+    };
+  }, []);
+
+  // useLayoutEffect
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect!!!!!!");
+  }, []);
+
   return <>
     {loginUser ? <Profile name={loginUser?.name} signOut={signOut}/> : <Login signIn={signIn} />}
+    <h1>{time} ====== posts: {posts.length} </h1>
     <div className="my-5 border text-center">
       <ul>
         {cart?.length
