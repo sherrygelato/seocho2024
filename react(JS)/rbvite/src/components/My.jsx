@@ -3,8 +3,9 @@ import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Login from "./Login";
 import Profile from "./Profile";
 import Button from "./atoms/Button";
-import SampleAtoms from "./atoms/SampleAtoms";
-import ItemEdit from "./ItemEdit";
+// import SampleAtoms from "./atoms/SampleAtoms";
+import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
+// import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
 
 export default function My({
   session: { loginUser, cart },
@@ -14,18 +15,23 @@ export default function My({
   addItem,
   saveItem,
 }) {
+  // 리액트가 따로 캐싱하고 있음
   const [isAdding, setIsAdding] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
+  // 계속 변경되고 있는, 다시 그릴 수 밖에 없는
   const cancelAdding = () => {
+    console.log("# none :: cancelAdding My.jsx");
     setIsAdding(false);
   };
 
   const editing = (itemId) => {
+    console.log("# none :: editing My.jsx");
     setEditingItem(cart.find((item) => item.id === itemId));
   };
 
   const cancelEditing = () => {
+    console.log("# none :: cancelEditing My.jsx");
     setEditingItem(null);
   };
 
@@ -65,7 +71,12 @@ export default function My({
     // console.debug("useLayoutEffect!!!!!!");
   }, []);
 
-  const addingItem = useMemo(() => ({ name: "", price: 1000 }), []);
+  const addingItem = useMemo(() => ({ name: "x", price: 1000 }), []);
+
+  const totalPrice = useMemo(() => {
+    // console.log("ttttttttttttttt");
+    return cart?.reduce((acc, item) => acc + item.price, 0);
+  }, [cart]);
 
   return (
     <>
@@ -121,8 +132,12 @@ export default function My({
               ))
             : "장바구니가 비었습니다."}
         </ul>
+        <h3 className="pl-1 text-left text-green-500">
+          * Total: {totalPrice.toLocaleString()}원
+        </h3>
         {isAdding ? (
-          <ItemEdit cancel={cancelAdding} save={addItem} item={addingItem} />
+          // <ItemEdit item={addingItem} cancel={cancelAdding} save={addItem} />
+          <MemoedItemEdit item={addingItem} cancel={cancelAdding} save={addItem} /> // 사용하는 바깥쪽
         ) : (
           <Button
             onClick={() => setIsAdding(true)}
@@ -132,7 +147,9 @@ export default function My({
         )}
       </div>
 
-      <SampleAtoms />
+      {/* <MemoedItemEdit /> */}
+
+      {/* <SampleAtoms /> */}
     </>
   );
 }

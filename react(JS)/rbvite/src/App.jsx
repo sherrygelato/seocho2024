@@ -1,51 +1,36 @@
-import { useState } from 'react'
-import './App.css'
-import Hello from './components/Hello'
-import My from './components/My';
+import { useState } from "react";
+// import { flushSync } from "react-dom";
+import "./App.css";
+import Hello from "./components/Hello";
+import My from "./components/My";
 
- // mock (가짜 data)
+// mock
 const SampleSession = {
-  loginUser: { id: 1, name: 'sherrygelato', age: 33 }, // login
-  // loginUser: null, // logout
+  loginUser: { id: 1, name: "Sherrygelato", age: 33 },
+  // loginUser: null,
   cart: [
-    { id: 100, name: "라면", price: 3000 },
-    { id: 101, name: "컵라면", price: 2000 },
-    { id: 200, name: "파", price: 5000 },
+    { id: 100, name: "기본김밥", price: 4500 },
+    { id: 101, name: "참치김밥", price: 5000 },
+    { id: 200, name: "소고기김밥", price: 5000 },
   ],
 };
 
 function App() {
-  const [count, setCount] = useState(0)
-  // console.log(`App.jsx :: Count의 횟수 ${count}에 따라 App.jsx가 다시 그려지고 있습니다.`)
-  
-  // 값이 바뀌면 리액트가 알아서 바꿔준다
+  const [session, setSession] = useState(SampleSession);
+  const [count, setCount] = useState(0);
+  // const [didLogin, setDidLogin] = useState(true);
+  const plusCount = () => setCount((count) => count + 1);
+  // const plusCount = () => setCount((curr) => curr + 1);
 
-  // {
-  //   count = count + 1
-  //   _count = 0,
-  //   setCount(val){
-  //     this._count=val;
-  //   }
-  //   get count() {
-  //     return this._count;
-  //   }
+  // console.log('Appppppppppppp!', count)
+
+  // const toggleLogin = () => {
+  //   setDidLogin(!didLogin);
   // }
 
-  const plusCount = () => setCount(count + 1);
-  // const plusCount = () => setCount((count) => count + 1);
-  
-  const [session, setSession] = useState(SampleSession)
-  const logout = () => {
-    setSession({
-      ...session, loginUser: null // destructuring
-    })
-  }
+  const logout = () => setSession({ ...session, loginUser: null });
 
   const login = (name) => {
-    // const loginUser = session.loginUser;
-    // setSession({
-    //   ...session, loginUser: {...loginUser, name: name } // destructuring
-    // })
     const id = 1;
     const age = 33;
     const x = {
@@ -53,7 +38,7 @@ function App() {
       loginUser: { ...session.loginUser, id, name, age },
     };
     setSession(x);
-  }
+  };
 
   const removeItem = (itemId) => {
     setSession({
@@ -63,15 +48,16 @@ function App() {
   };
 
   const addItem = (addingItem) => {
-    const { name, price } = addingItem;
     const id = Math.max(...session.cart.map((item) => item.id)) ?? 0;
+    const { name, price } = addingItem;
     const item = { id: id + 1, name, price };
     console.log("🚀  id:", id);
     setSession({ ...session, cart: [...session.cart, item] });
-  }
+  };
 
   const saveItem = (editingItem) => {
     const { id } = editingItem;
+
     setSession({
       ...session,
       cart: [
@@ -79,30 +65,42 @@ function App() {
       ],
     });
   };
-  
+
   return (
     <>
       <div>
-        {session.loginUser && <Hello name={session.loginUser.name} age={session.loginUser.age} plusCount={plusCount} />}
-        < My
-          session={session}
-          signOut={logout}
-          signIn={login}
-          removeItem={removeItem}
-          addItem={addItem}
-          saveItem={saveItem}
-         />
-         </div>
-      <div className="card m-3">
+        {session.loginUser && (
+          <Hello
+            name={session.loginUser.name}
+            age={session.loginUser.age}
+            plusCount={plusCount}
+          />
+        )}
+      </div>
+      {/* <button onClick={toggleLogin}>
+        Toggle {session.loginUser ? 'Logined' : 'NotLogined'}
+      </button> */}
+
+      <My
+        session={session}
+        signOut={logout}
+        signIn={login}
+        removeItem={removeItem}
+        addItem={addItem}
+        saveItem={saveItem}
+      />
+      <div className="card">
         <button
           onClick={() => {
             setCount((pre) => pre + 1);
             // flushSync(() => setCount((count) => count + 1));
           }}
-        ></button>
+        >
+          count is {count}
+        </button>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
