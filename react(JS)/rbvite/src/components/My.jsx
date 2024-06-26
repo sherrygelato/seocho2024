@@ -24,16 +24,7 @@ export default function My({
     console.log("# none :: cancelAdding My.jsx");
     setIsAdding(false);
   };
-
-  const editing = (itemId) => {
-    console.log("# none :: editing My.jsx");
-    setEditingItem(cart.find((item) => item.id === itemId));
-  };
-
-  const cancelEditing = () => {
-    console.log("# none :: cancelEditing My.jsx");
-    setEditingItem(null);
-  };
+ 
 
   // test useEffect
   const [time, setTime] = useState(
@@ -71,12 +62,34 @@ export default function My({
     // console.debug("useLayoutEffect!!!!!!");
   }, []);
 
+  const editing = (itemId) => {
+    console.log("# none :: editing My.jsx");
+    const item = cart.find((item) => item.id === itemId)
+    setEditingItem(item);
+    setPrePrice(item.price)
+  };
+
+  const cancelEditing = () => {
+    console.log("# none :: cancelEditing My.jsx");
+    setEditingItem(null);
+    setPrePrice(0)
+  };
+
+  // 프록시 방식으로 바꿈
+  const editItem = (item) => {
+    saveItem(item)
+    if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag)
+  }
+
   const addingItem = useMemo(() => ({ name: "x", price: 1000 }), []);
 
+  const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(true)
+  const [prePrice, setPrePrice] = useState(0)
   const totalPrice = useMemo(() => {
-    // console.log("ttttttttttttttt");
+    console.log("# none :: totalPrice My.jsx" );
+    console.log(`# totalPriceToggleFlag :: ${totalPriceToggleFlag} My.jsx` );
     return cart?.reduce((acc, item) => acc + item.price, 0);
-  }, [cart]);
+  }, [cart, totalPriceToggleFlag]); // cart만 바라보는게 아니라 가격 비교해서 flag 확인하여 가기
 
   return (
     <>
@@ -86,7 +99,8 @@ export default function My({
         <Login singIn={signIn} />
       )}
 
-      <h1>Second: {time}</h1>
+      <h1>Second: {time} - prePrice: ${prePrice}</h1>
+      <button onClick={() => setTotalPriceToggleFlag(!totalPriceToggleFlag)}>totalPrice: ${totalPriceToggleFlag}</button>
 
       <div className="my-5 border text-center">
         <ul>
@@ -95,7 +109,7 @@ export default function My({
                 <li key={item.id} className="flex justify-between border-b">
                   {editingItem?.id === item.id ? (
                     <ItemEdit
-                      item={editingItem}
+                      item={editItem} // editingItem에서 editItem로 프록시(경유) 방식으로 바꿈
                       cancel={cancelEditing}
                       save={saveItem}
                     />

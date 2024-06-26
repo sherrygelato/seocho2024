@@ -56,14 +56,25 @@ function App() {
   };
 
   const saveItem = (editingItem) => {
-    const { id } = editingItem;
+    console.log("# none :: saveItem App.jsx");
+    const { id, name, price } = editingItem;
+    const foundItem = session.cart.find(item => item.id === id); // 수정되고 있는 거 item 변수에 담기
+    // 변수 variable shadowing
 
-    setSession({
-      ...session,
-      cart: [
-        ...session.cart.map((item) => (item.id === id ? editingItem : item)),
-      ],
-    });
+    foundItem.name = name;
+    foundItem.price = price;
+    // 속에 있는 값만 바뀌었는데, set안불렀는데
+    // re-render 되기 때문에 다시 그려짐
+    // 연결된 함수가 setter 불러서 리랜더링 되었기 때문입
+
+    setSession({...session}) // totalPrice가 cart를 보고 ㅣㅇㅆ기 때문이다
+
+    // setSession({
+    //   ...session,
+    //   cart: [
+    //     ...session.cart.map((item) => (item.id === id ? editingItem : item)),
+    //   ],
+    // });
   };
 
   return (
