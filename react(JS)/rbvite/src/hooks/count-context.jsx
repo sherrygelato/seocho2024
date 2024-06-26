@@ -1,7 +1,9 @@
 import { createContext, useState, useContext } from "react"
 
+// 11111111
 const CountContext = createContext();
 
+// 22222222
 const CountProvider = ({children}) => {
     const [count, setCount] = useState(0);
     const plusCount = () => setCount((count) => count + 1);
@@ -10,6 +12,8 @@ const CountProvider = ({children}) => {
     return <CountContext.Provider value={obj}>{children}</CountContext.Provider>;
 };
 
+// 333333333
+// CountContext for Count
 const useCount = () => useContext(CountContext);
 
 // warning 끄기 : 

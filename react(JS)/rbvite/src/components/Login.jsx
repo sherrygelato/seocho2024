@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import Button from "./atoms/Button";
 import Input from "./atoms/Input";
+import { useSession } from "../hooks/session-context";
 
-export default function Login({ singIn }) {
+export default function Login() {
+  const {login: signIn} = useSession();
   const nameRef = useRef();
   const passwdRef = useRef();
 
   const login = (evt) => {
     evt.preventDefault();
-    // evt.stopPropagation();
-    // console.log("nameRef.current.value>>", nameRef.current.value);
     const name = nameRef.current.value;
     const passwd = passwdRef.current.value;
     if (!name || !passwd) {
@@ -19,7 +19,7 @@ export default function Login({ singIn }) {
       return;
     }
 
-    singIn(nameRef.current.value);
+    signIn(nameRef.current.value);
   };
 
   useEffect(() => {
@@ -35,7 +35,6 @@ export default function Login({ singIn }) {
       <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div className="sm:col-span-3">
           <Input label="Name" ref={nameRef} />
-          {/* <input type="text" ref={nameRef} className="px-2 ring-1 ring-inset" /> */}
         </div>
 
         <div className="sm:col-span-3">

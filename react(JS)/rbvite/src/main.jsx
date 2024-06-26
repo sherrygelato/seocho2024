@@ -6,8 +6,6 @@ import { CountProvider } from './hooks/count-context.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CountProvider>
-      <App />
-    </CountProvider>
+    <CountProvider><App /></CountProvider>
   </React.StrictMode>,
 )

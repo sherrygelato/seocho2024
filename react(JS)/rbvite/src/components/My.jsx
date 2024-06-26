@@ -1,26 +1,23 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import Hello from "./Hello";
 import Login from "./Login";
 import Profile from "./Profile";
-import Button from "./atoms/Button";
-// import SampleAtoms from "./atoms/SampleAtoms";
 import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
+import Button from "./atoms/Button";
 import { useCount } from "../hooks/count-context";
-// import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
+import { SessionProvider, useSession } from "../hooks/session-context";
 
-export default function My({
-  session: { loginUser, cart },
-  signOut,
-  signIn,
-  removeItem,
-  addItem,
-  saveItem,
-}) {
+export default function My() {
+
+  const {session: {loginUser, cart}, logout: signOut, login: signIn } = useSession();
+
   // 리액트가 따로 캐싱하고 있음
   const [isAdding, setIsAdding] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
   const {count} = useCount();
+  const { session, cart, removeItem } = useSession();
 
   // 계속 변경되고 있는, 다시 그릴 수 밖에 없는
   const cancelAdding = () => {
@@ -45,21 +42,6 @@ export default function My({
       clearInterval(intl);
     };
   }, []);
-
-  // const [posts, setPosts] = useState([]);
-  // useEffect(() => {
-  //   const controller = new AbortController();
-  //   const { signal } = controller;
-  //   // console.log("fetch!!!");
-  //   fetch("https://jsonplaceholder.typicode.com/posts?userId=2", signal)
-  //     .then((res) => res.json())
-  //     .then((data) => setPosts(data));
-
-  //   return () => {
-  //     // console.log("abort!!");
-  //     controller.abort();
-  //   };
-  // }, []);
 
   useLayoutEffect(() => {
     // console.debug("useLayoutEffect!!!!!!");
@@ -96,10 +78,16 @@ export default function My({
 
   return (
     <>
-      {loginUser ? (
-        <Profile name={loginUser?.name} signOut={signOut} />
+      <SessionProvider>
+        <Hello
+          name={session.loginUser.name}
+          age={session.loginUser.age}
+        />
+      </SessionProvider>
+      {session.loginUser ? (
+        <Profile />
       ) : (
-        <Login singIn={signIn} />
+        <Login />
       )}
 
       <h1>Second: {time} - prePrice: ${prePrice} - count: {count}</h1>
@@ -156,7 +144,6 @@ export default function My({
           * Total: {totalPrice.toLocaleString()}원
         </h3>
         {isAdding ? (
-          // <ItemEdit item={addingItem} cancel={cancelAdding} save={addItem} />
           <MemoedItemEdit item={addingItem} cancel={cancelAdding} save={addItem} /> // 사용하는 바깥쪽
         ) : (
           <Button
@@ -166,10 +153,6 @@ export default function My({
           />
         )}
       </div>
-
-      {/* <MemoedItemEdit /> */}
-
-      {/* <SampleAtoms /> */}
     </>
   );
 }
