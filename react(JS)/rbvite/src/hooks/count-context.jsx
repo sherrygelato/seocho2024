@@ -1,13 +1,34 @@
-import { createContext, useState, useContext } from "react"
+import { createContext, useContext, useReducer } from "react"
 
 // 11111111
 const CountContext = createContext();
 
+// 55555555
+const reducer = (count, action) => {
+    const {type, step} = action;
+    switch (type) {
+        case "plus":
+            return count + step;
+        case "minus":
+            return count - step;
+        default:
+            return count;
+    }
+}
+
 // 22222222
 const CountProvider = ({children}) => {
-    const [count, setCount] = useState(0);
-    const plusCount = () => setCount((count) => count + 1);
-    const minusCount = () => setCount((count) => count - 1);
+
+    // 44444444
+    // dispatch({type: 'plus', step: 2})
+    const [count, dispatch] = useReducer(reducer, 0); // count 초기값 0
+
+
+    // const plusCount = () => setCount((count) => count + 1);
+    // const minusCount = () => setCount((count) => count - 1);
+    const plusCount = (step = 1) => dispatch({type: "plus", step: step});
+    const minusCount = (step = 1) => dispatch({type: "minus", step: step});
+    
 
     const obj = {count, plusCount, minusCount}
     return <CountContext.Provider value={obj}>{children}</CountContext.Provider>;

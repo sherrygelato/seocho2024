@@ -8,6 +8,7 @@ export default function Hello(props) {
 
   const [ isActive, setIsActive] = useState(false);
   const [ isValid, toggleValid] = useReducer((pre) => !pre, false); // totalCalc도 가능
+  // const [ isValid, toggleValid] = useReducer((pre, newValue) => newValue > 10 ? !pre : pre, false); // totalCalc도 가능
 
   useEffect(() => {
     // console.log("# useEffect :: Hello.jsx");
