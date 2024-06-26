@@ -4,6 +4,9 @@ import Input from "./atoms/Input";
 import { useSession } from "../hooks/session-context";
 
 export default function Login() {
+  console.log("# none :: Login.jsx");
+
+
   const {login: signIn} = useSession();
   const nameRef = useRef();
   const passwdRef = useRef();

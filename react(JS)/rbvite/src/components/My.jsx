@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Login from "./Login";
 import Profile from "./Profile";
 import Button from "./atoms/Button";
 import SampleAtoms from "./atoms/SampleAtoms";
-import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
-import { useCount } from "../hooks/counter-context";
+import { MemoedItemEdit } from "./ItemEdit";
+import { useCount } from "../hooks/count-context";
 import Hello from "./Hello";
 import { useSession } from "../hooks/session-context";
 // import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
@@ -65,24 +65,32 @@ export default function My() {
 
   const addingItem = useMemo(() => ({ name: "", price: 1000 }), []);
 
-  const editing = (itemId) => {
+  // const editing = (itemId) => {
+  //   const item = cart.find((item) => item.id === itemId);
+  //   setEditingItem(item);
+  //   setPrePrice(item.price);
+  // };
+
+  const editing = useCallback((itemId) => {
+    console.log("editing id>>", itemId);
     const item = cart.find((item) => item.id === itemId);
     setEditingItem(item);
     setPrePrice(item.price);
-  };
-  const cancelEditing = () => {
+  }, [cart])
+
+  const cancelEditing = useCallback(() => {
     setEditingItem(null);
     setPrePrice(0);
-  };
-  const editItem = (item) => {
+  }, []);
+  const editItem = useCallback((item) => {
     saveItem(item);
     if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag);
-  };
+  }, [prePrice, saveItem, totalPriceToggleFlag]);
 
   const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(false);
   const [prePrice, setPrePrice] = useState(0);
   const totalPrice = useMemo(() => {
-    console.log("tttotalPrice>>", totalPriceToggleFlag);
+    console.log("totalPrice>>", totalPriceToggleFlag);
     return cart?.reduce((acc, item) => acc + item.price, 0);
   }, [cart, totalPriceToggleFlag]);
 
@@ -104,7 +112,7 @@ export default function My() {
             ? cart.map((item) => (
                 <li key={item.id} className="flex justify-between border-b">
                   {editingItem?.id === item.id ? (
-                    <ItemEdit
+                    <MemoedItemEdit
                       item={editingItem}
                       cancel={cancelEditing}
                       save={editItem}

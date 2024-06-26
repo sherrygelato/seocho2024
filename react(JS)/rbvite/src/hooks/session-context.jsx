@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react"
+import { createContext, useState, useContext, useCallback } from "react"
 
 // mock
 const SampleSession = {
@@ -19,7 +19,7 @@ const SessionProvider = ({ children }) => {
     
     const logout = () => setSession({ ...session, loginUser: null});
 
-    const login = (name) => {
+    const login = useCallback((name) => {
         const id = 1;
         const age = 33;
         const x = {
@@ -27,17 +27,17 @@ const SessionProvider = ({ children }) => {
         loginUser: { ...session.loginUser, id, name, age },
         };
         setSession(x);
-    };
+    },[session]);
 
-    const addItem = (addingItem) => {
+    const addItem = useCallback((addingItem) => {
         const id = Math.max(...session.cart.map((item) => item.id)) ?? 0;
         const { name, price } = addingItem;
         const item = { id: id + 1, name, price };
         console.log("🚀  id:", id);
         setSession({ ...session, cart: [...session.cart, item] });
-      };
+      }, [session]);
     
-      const saveItem = (editingItem) => {
+      const saveItem = useCallback((editingItem) => {
         console.log("# none :: saveItem App.jsx");
         const { id, name, price } = editingItem;
         const foundItem = session.cart.find(item => item.id === id); // 수정되고 있는 거 item 변수에 담기
@@ -50,11 +50,13 @@ const SessionProvider = ({ children }) => {
         // 연결된 함수가 setter 불러서 리랜더링 되었기 때문입
     
         setSession({...session}) // totalPrice가 cart를 보고 ㅣㅇㅆ기 때문이다
-      };
+      }, [session]);
 
-    const removeItem = (itemId) => {
-        setSession(session.cart.filter((item) => item.id !== itemId));
-      };
+    const removeItem = useCallback(
+        (item) => {
+            saveItem(item);
+            if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag);
+          });
 
     const obj =  { session, login, logout, saveItem, removeItem, addItem }
     return <SessionContext.Provider value={obj}>{children}</SessionContext.Provider>;
