@@ -1,30 +1,31 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import Hello from "./Hello";
 import Login from "./Login";
 import Profile from "./Profile";
-import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
 import Button from "./atoms/Button";
-import { useCount } from "../hooks/count-context";
-import { SessionProvider, useSession } from "../hooks/session-context";
+import SampleAtoms from "./atoms/SampleAtoms";
+import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
+import { useCount } from "../hooks/counter-context";
+import Hello from "./Hello";
+import { useSession } from "../hooks/session-context";
+// import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
 
 export default function My() {
+  const {
+    session: { loginUser, cart },
+    saveItem,
+    addItem,
+    removeItem,
+  } = useSession();
 
-  const {session: {loginUser, cart}, logout: signOut, login: signIn } = useSession();
-
-  // 리액트가 따로 캐싱하고 있음
   const [isAdding, setIsAdding] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
 
-  const {count} = useCount();
-  const { session, cart, removeItem } = useSession();
+  const { count } = useCount();
 
-  // 계속 변경되고 있는, 다시 그릴 수 밖에 없는
   const cancelAdding = () => {
-    console.log("# none :: cancelAdding My.jsx");
     setIsAdding(false);
   };
- 
 
   // test useEffect
   const [time, setTime] = useState(
@@ -43,58 +44,59 @@ export default function My() {
     };
   }, []);
 
+  // const [posts, setPosts] = useState([]);
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const { signal } = controller;
+  //   // console.log("fetch!!!");
+  //   fetch("https://jsonplaceholder.typicode.com/posts?userId=2", signal)
+  //     .then((res) => res.json())
+  //     .then((data) => setPosts(data));
+
+  //   return () => {
+  //     // console.log("abort!!");
+  //     controller.abort();
+  //   };
+  // }, []);
+
   useLayoutEffect(() => {
     // console.debug("useLayoutEffect!!!!!!");
   }, []);
 
+  const addingItem = useMemo(() => ({ name: "", price: 1000 }), []);
+
   const editing = (itemId) => {
-    console.log("# none :: editing My.jsx");
-    const item = cart.find((item) => item.id === itemId)
+    const item = cart.find((item) => item.id === itemId);
     setEditingItem(item);
-    setPrePrice(item.price)
+    setPrePrice(item.price);
   };
-
   const cancelEditing = () => {
-    console.log("# none :: cancelEditing My.jsx");
     setEditingItem(null);
-    setPrePrice(0)
+    setPrePrice(0);
+  };
+  const editItem = (item) => {
+    saveItem(item);
+    if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag);
   };
 
-  // 프록시 방식으로 바꿈
-  const editItem = (item) => {
-    saveItem(item)
-    if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag)
-  }
-
-  const addingItem = useMemo(() => ({ name: "x", price: 1000 }), []);
-
-  const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(true)
-  const [prePrice, setPrePrice] = useState(0)
+  const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(false);
+  const [prePrice, setPrePrice] = useState(0);
   const totalPrice = useMemo(() => {
-    console.log("# none :: totalPrice My.jsx" );
-    console.log(`# totalPriceToggleFlag :: ${totalPriceToggleFlag} My.jsx` );
+    console.log("tttotalPrice>>", totalPriceToggleFlag);
     return cart?.reduce((acc, item) => acc + item.price, 0);
-  }, [cart, totalPriceToggleFlag]); // cart만 바라보는게 아니라 가격 비교해서 flag 확인하여 가기
+  }, [cart, totalPriceToggleFlag]);
 
   return (
     <>
-      <SessionProvider>
-        <Hello
-          name={session.loginUser.name}
-          age={session.loginUser.age}
-        />
-      </SessionProvider>
-      {session.loginUser ? (
-        <Profile />
-      ) : (
-        <Login />
-      )}
+      <div>
+        <Hello name={loginUser.name} age={loginUser.age} />
+      </div>
 
-      <h1>Second: {time} - prePrice: ${prePrice} - count: {count}</h1>
-      <Button
-        text="TotalPrice"
-        onClick={() => setTotalPriceToggleFlag(!totalPriceToggleFlag)}
-      />
+      {loginUser ? <Profile /> : <Login />}
+
+      <h1>
+        Second: {time} - {count}
+      </h1>
 
       <div className="my-5 border text-center">
         <ul>
@@ -103,9 +105,9 @@ export default function My() {
                 <li key={item.id} className="flex justify-between border-b">
                   {editingItem?.id === item.id ? (
                     <ItemEdit
-                      item={editItem} // editingItem에서 editItem로 프록시(경유) 방식으로 바꿈
+                      item={editingItem}
                       cancel={cancelEditing}
-                      save={saveItem}
+                      save={editItem}
                     />
                   ) : (
                     <>
@@ -144,7 +146,11 @@ export default function My() {
           * Total: {totalPrice.toLocaleString()}원
         </h3>
         {isAdding ? (
-          <MemoedItemEdit item={addingItem} cancel={cancelAdding} save={addItem} /> // 사용하는 바깥쪽
+          <MemoedItemEdit
+            item={addingItem}
+            cancel={cancelAdding}
+            save={addItem}
+          />
         ) : (
           <Button
             onClick={() => setIsAdding(true)}
@@ -153,6 +159,8 @@ export default function My() {
           />
         )}
       </div>
+
+      <SampleAtoms />
     </>
   );
 }
