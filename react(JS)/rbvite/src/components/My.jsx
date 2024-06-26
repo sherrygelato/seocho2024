@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import Button from "./atoms/Button";
 // import SampleAtoms from "./atoms/SampleAtoms";
 import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
+import { useCount } from "../hooks/count-context";
 // import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
 
 export default function My({
@@ -18,6 +19,8 @@ export default function My({
   // 리액트가 따로 캐싱하고 있음
   const [isAdding, setIsAdding] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+
+  const {count} = useCount();
 
   // 계속 변경되고 있는, 다시 그릴 수 밖에 없는
   const cancelAdding = () => {
@@ -99,7 +102,7 @@ export default function My({
         <Login singIn={signIn} />
       )}
 
-      <h1>Second: {time} - prePrice: ${prePrice}</h1>
+      <h1>Second: {time} - prePrice: ${prePrice} - count: {count}</h1>
       <Button
         text="TotalPrice"
         onClick={() => setTotalPriceToggleFlag(!totalPriceToggleFlag)}

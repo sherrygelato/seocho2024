@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { useCount } from "../hooks/count-context";
 
 export default function Hello(props) {
+  const {plusCount} = useCount(); 
   console.log("# none :: Hello.jsx");
 
   useEffect(() => {
@@ -9,7 +11,7 @@ export default function Hello(props) {
 
   return (
     <h1
-      onClick={props.plusCount}
+      onClick={plusCount}
       style={{
         cursor: "pointer",
       }}
