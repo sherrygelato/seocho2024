@@ -100,7 +100,10 @@ export default function My({
       )}
 
       <h1>Second: {time} - prePrice: ${prePrice}</h1>
-      <button onClick={() => setTotalPriceToggleFlag(!totalPriceToggleFlag)}>totalPrice: ${totalPriceToggleFlag}</button>
+      <Button
+        text="TotalPrice"
+        onClick={() => setTotalPriceToggleFlag(!totalPriceToggleFlag)}
+      />
 
       <div className="my-5 border text-center">
         <ul>
