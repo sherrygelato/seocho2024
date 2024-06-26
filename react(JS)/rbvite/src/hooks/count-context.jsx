@@ -20,7 +20,7 @@ const reducer = (count, action) => {
 const CountProvider = ({children}) => {
 
     // 44444444
-    // dispatch({type: 'plus', step: 2})
+    // dispatch({type: 'plus', step: 2}) : payload
     const [count, dispatch] = useReducer(reducer, 0); // count 초기값 0
 
 
