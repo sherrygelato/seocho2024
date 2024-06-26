@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Login from "./Login";
 import Profile from "./Profile";
@@ -8,7 +14,6 @@ import { MemoedItemEdit } from "./ItemEdit";
 import { useCount } from "../hooks/count-context";
 import Hello from "./Hello";
 import { useSession } from "../hooks/session-context";
-// import ItemEdit, { MemoedItemEdit } from "./ItemEdit";
 
 export default function My() {
   const {
@@ -70,35 +75,46 @@ export default function My() {
   //   setEditingItem(item);
   //   setPrePrice(item.price);
   // };
+  const editing = useCallback(
+    (itemId) => {
+      console.log("🚀  itemId:", itemId);
+      const item = cart.find((item) => item.id === itemId);
+      setEditingItem(item);
+      setPrePrice(item.price);
+    },
+    [cart],
+  );
 
-  const editing = useCallback((itemId) => {
-    console.log("editing id>>", itemId);
-    const item = cart.find((item) => item.id === itemId);
-    setEditingItem(item);
-    setPrePrice(item.price);
-  }, [cart])
+  const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(false);
+  const [prePrice, setPrePrice] = useState(0);
+  const totalPrice = useMemo(() => {
+    console.warn("tttotalPrice>>", totalPriceToggleFlag);
+    return cart?.reduce((acc, item) => acc + item.price, 0);
+  }, [cart, totalPriceToggleFlag]);
 
   const cancelEditing = useCallback(() => {
     setEditingItem(null);
     setPrePrice(0);
   }, []);
-  const editItem = useCallback((item) => {
-    saveItem(item);
-    if (prePrice !== item.price) setTotalPriceToggleFlag(!totalPriceToggleFlag);
-  }, [prePrice, saveItem, totalPriceToggleFlag]);
 
-  const [totalPriceToggleFlag, setTotalPriceToggleFlag] = useState(false);
-  const [prePrice, setPrePrice] = useState(0);
-  const totalPrice = useMemo(() => {
-    console.log("totalPrice>>", totalPriceToggleFlag);
-    return cart?.reduce((acc, item) => acc + item.price, 0);
-  }, [cart, totalPriceToggleFlag]);
+  const editItem = useCallback(
+    (item) => {
+      saveItem(item);
+      if (prePrice !== item.price)
+        setTotalPriceToggleFlag(!totalPriceToggleFlag);
+
+      // setTotalPriceToggleFlag(prePrice !== item.price);
+    },
+    [saveItem, prePrice, totalPriceToggleFlag],
+  );
 
   return (
     <>
-      <div>
-        <Hello name={loginUser.name} age={loginUser.age} />
-      </div>
+      {loginUser && (
+        <div>
+          <Hello name={loginUser.name} age={loginUser.age} />
+        </div>
+      )}
 
       {loginUser ? <Profile /> : <Login />}
 
