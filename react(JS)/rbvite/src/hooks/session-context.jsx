@@ -4,7 +4,7 @@ const SessionContext = createContext();
 
 // mock
 const SampleSession = {
-  loginUser: { id: 1, name: "Hong", age: 33 },
+  loginUser: { id: 1, name: "Sherrygelato", age: 33 },
   // loginUser: null,
   cart: [
     { id: 100, name: "라면", price: 3000 },
@@ -14,7 +14,7 @@ const SampleSession = {
 };
 
 // arr.reduce( (acc, a) => acc + a )
-// dispatch({type: 'login', payload: {name: 'Hong'}})
+// dispatch({type: 'login', payload: {name: 'Sherrygelato'}})
 const reducer = (session, action) => {
   const {
     type,
