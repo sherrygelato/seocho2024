@@ -1,13 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import Button from "./atoms/Button";
 import Input from "./atoms/Input";
-import { useSession } from "../hooks/session-context";
+// import { useSession } from "../hooks/session-context";
 
-export default function Login() {
+export default function Login({signIn}) {
   console.log("# none :: Login.jsx");
 
-
-  const {login: signIn} = useSession();
+  // const {login: signIn} = useSession();
   const nameRef = useRef();
   const passwdRef = useRef();
 
@@ -57,3 +56,6 @@ export default function Login() {
     </form>
   );
 }
+
+// export const MemoedLogin = memo(Login);
+export const MemoedLogin = memo(Login, ({ login: a }, { login: b }) => a === b);
