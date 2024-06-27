@@ -13,6 +13,7 @@ export default function ItemEdit({ cancel, save, item }) {
 
   const saveItem = (evt) => {
     evt.preventDefault();
+    evt.stopPropagation();
     const name = nameRef.current.value;
     // console.log("🚀  name:", name);
     const price = priceRef.current.value;

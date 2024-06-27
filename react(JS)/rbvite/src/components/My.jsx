@@ -9,11 +9,12 @@ import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import MemoedLogin from "./Login";
 import Profile from "./Profile";
 import Button from "./atoms/Button";
-import SampleAtoms from "./atoms/SampleAtoms";
+// import SampleAtoms from "./atoms/SampleAtoms";
 import { MemoedItemEdit } from "./ItemEdit";
 import { useCount } from "../hooks/count-context";
 import Hello from "./Hello";
 import { useSession } from "../hooks/session-context";
+import clsx from "clsx";
 
 export default function My() {
   const {
@@ -109,6 +110,11 @@ export default function My() {
     [saveItem, prePrice, totalPriceToggleFlag],
   );
 
+  const [isUnder3, setIsUnder] = useState(false);
+  useEffect(() => {
+    setIsUnder(cart?.length < 3);
+  }, [cart]);
+
   return (
     <>
       {loginUser && (
@@ -123,8 +129,16 @@ export default function My() {
         Second: {time} - {count}
       </h1>
 
-      <div className="my-5 border text-center">
-        <ul>
+      <div className="my-5 border-2 border-red-500 text-center">
+        {/* <ul> */}
+        {/* <ul className={clsx("border-b-2", "border-red-500")}> */}
+        {/* <ul className={clsx({"border-b-2":true, "border-red-500":cart?.length < 3})}> */}
+        <ul
+          className={clsx({
+            "border-b-2": true,
+            "border-red-500": isUnder3,
+          })}
+        >
           {cart?.length
             ? cart.map((item) => (
                 <li key={item.id} className="flex justify-between border-b">
@@ -185,7 +199,7 @@ export default function My() {
         )}
       </div>
 
-      <SampleAtoms />
+      {/* <SampleAtoms /> */}
     </>
   );
 }

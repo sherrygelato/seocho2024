@@ -99,17 +99,6 @@ const SessionProvider = ({ children }) => {
     [],
 );
 
-//   const addItem = useCallback(
-//     (item) => {
-//     //   const id = Math.max(...session.cart.map((item) => item.id)) ?? 0;
-//     //   const { name, price } = addingItem;
-//     //   const item = { id: id + 1, name, price };
-//     //   console.log("🚀  id:", id);
-//     //   setSession({ ...session, cart: [...session.cart, item] });
-//       dispatch({type: 'addItem', payload: item})
-//     },
-//     [],
-//   );
   const addItem = useCallback(
     ({ name, price }) => {
         const maxId = Math.max(...session.cart.map((_item) => _item.id)) ?? 0;
