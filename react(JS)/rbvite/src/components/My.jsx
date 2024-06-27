@@ -14,7 +14,8 @@ import { MemoedItemEdit } from "./ItemEdit";
 import { useCount } from "../hooks/count-context";
 import Hello from "./Hello";
 import { useSession } from "../hooks/session-context";
-import clsx from "clsx"
+import clsx from "clsx";
+
 
 
 export default function My() {
@@ -137,7 +138,8 @@ export default function My() {
         <ul
           className={clsx({
             "border-b-2": true,
-            "border-red-500": isUnder3,
+            "border-red-500": !isUnder3,
+            "border-blue-500": isUnder3,
           })}
         >
           {cart?.length
