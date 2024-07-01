@@ -4,12 +4,10 @@ import Link from 'next/link';
 import {
   useRouter,
   usePathname,
-  redirect, // useSearchParams,
-  // useParams,
+  redirect, // useSearchParams, useParams,
 } from 'next/navigation';
 import React from 'react';
-
-const TIMES = ['morning', 'afternoon', 'evening'];
+import { TIMES } from '../../..//utils/route-utils';
 
 export default function HelloLayout({
   children,

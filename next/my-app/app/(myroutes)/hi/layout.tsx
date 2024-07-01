@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-
-const TIMES = ['morning', 'afternoon', 'evening'];
+import { TIMES } from '../../../utils/route-utils';
 
 export default function HiLayout({
   children,
