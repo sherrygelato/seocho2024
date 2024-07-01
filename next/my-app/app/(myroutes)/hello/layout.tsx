@@ -4,8 +4,8 @@ import Link from 'next/link';
 import {
   useRouter,
   usePathname,
-  redirect,
-  useSearchParams, // useParams,
+  redirect, // useSearchParams,
+  // useParams,
 } from 'next/navigation';
 import React from 'react';
 
@@ -26,26 +26,26 @@ export default function HelloLayout({
   console.log(`🚀 pathname : ${pathname}`);
   if (pathname.endsWith('evening')) redirect('/hello'); // redirect는 server에서 page 전환
 
-  const searchParams = useSearchParams(); // client에서 page 전환
-  const sid = searchParams.get('id');
-  console.log(`🚀 searchParams : ${searchParams}, sid : ${sid}`);
+  // const searchParams = useSearchParams(); // client에서 page 전환
+  // const sid = searchParams.get('id');
+  // console.log(`🚀 searchParams : ${searchParams}, sid : ${sid}`);
 
-  // update searchParams example
-  // new URLSearchParams(searchParams.toString());는 node 기본 제공
-  const setSearchParam = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    console.log(`🚀 params : ${params}`);
+  // // update searchParams example
+  // // new URLSearchParams(searchParams.toString());는 node 기본 제공
+  // const setSearchParam = (name: string, value: string) => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   console.log(`🚀 params : ${params}`);
 
-    params.set(name, value);
+  //   params.set(name, value);
 
-    if (router && pathname) {
-      return router.push(`${pathname}?${params.toString()}`);
-    }
-    return params.toString();
-  };
+  //   if (router && pathname) {
+  //     return router.push(`${pathname}?${params.toString()}`);
+  //   }
+  //   return params.toString();
+  // };
 
-  // const idPwParams = useParams<{ id: string; pw: string }>();
-  // console.log('🚀 idPwParams:', idPwParams);
+  // // const idPwParams = useParams<{ id: string; pw: string }>();
+  // // console.log('🚀 idPwParams:', idPwParams);
 
   return (
     <>
@@ -78,13 +78,13 @@ export default function HelloLayout({
         <button className='btn-primary' onClick={() => go('/hello')}>
           Go Hello
         </button>
-        <span className='mx-2 text-green-300'>|</span>
+        {/* <span className='mx-2 text-green-300'>|</span>
         <button
           className='btn-danger'
           onClick={() => setSearchParam('id', '999')}
         >
           Search Hello
-        </button>
+        </button> */}
       </div>
       <div className='m-5'>{children}</div>
     </>
