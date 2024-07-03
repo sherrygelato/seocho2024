@@ -1,3 +1,3 @@
-export default function PhotosDefaultPage() {
-  return <>default</>;
+export default function ViewerDefault() {
+  return null;
 }

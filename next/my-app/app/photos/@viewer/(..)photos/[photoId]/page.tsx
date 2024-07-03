@@ -1,23 +1,25 @@
-import Modal from '../../../../../components/Modal';
-import PhotoDetailPage from '../../../../photos/[photoId]/page';
+import ImageViewer from '@/components/ImageViewer';
+import Modal from '@/components/Modal';
+import { notFound } from 'next/navigation';
+import { getPhotos } from '@/lib/placeholder';
 
-export default function PhotoDetailInterceptorPage2({
+export default async function PhotoIntercept({
   params: { photoId },
 }: {
-  params: { photoId: number };
+  params: { photoId: string };
 }) {
+  const photos = await getPhotos(1);
+  const photo = photos.find((_photo) => {
+    return _photo.id === +photoId;
+  });
+
+  if (!photo) {
+    return notFound;
+  }
+
   return (
-    <>
-      <Modal className='bg-red-100'>
-        <h1 className='text-2xl'>
-          <strong>INTERCEPTOR</strong>
-        </h1>
-        <PhotoDetailPage
-          params={{
-            photoId: photoId,
-          }}
-        />
-      </Modal>
-    </>
+    <Modal className='p-0'>
+      <ImageViewer photo={photo} isModal={true} />
+    </Modal>
   );
 }
