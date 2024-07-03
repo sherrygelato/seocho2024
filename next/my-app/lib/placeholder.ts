@@ -19,15 +19,15 @@ export const getUsers = async (): Promise<User[]> => {
 };
 
 export const getTodos = async (userId: number): Promise<Todo[]> => {
-  // const res = await fetch(`${URL}/users/${userId}/todos`); // SSR
+  const res = await fetch(`${URL}/users/${userId}/todos`); // SSR 그때그때 매번 다르게
 
   // const res = await fetch(`${URL}/users/${userId}/todos`, {
   //   cache: 'no-store',
-  // }); // SSG
+  // }); // SSG : 100% 캐시 yarn dev라서 캐시 확인 못함
 
-  const res = await fetch(`${URL}/users/${userId}/todos`, {
-    next: { revalidate: 10 },
-  }); // ISR
+  // const res = await fetch(`${URL}/users/${userId}/todos`, {
+  //   next: { revalidate: 10 },
+  // }); // ISR : 점진적
   return res.json();
 };
 
