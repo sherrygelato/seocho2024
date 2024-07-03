@@ -11,7 +11,15 @@ export type Todo = {
   completed: boolean;
 };
 
-const URL = 'https://jsonplaceholder.typicode.com';
+export type Photo = {
+  albumId: number;
+  id: number;
+  title: string;
+  url: string;
+  thumbnailUrl: string;
+};
+
+export const URL = 'https://jsonplaceholder.typicode.com';
 
 export const getUsers = async (): Promise<User[]> => {
   const res = await fetch(`${URL}/users/`);
@@ -31,4 +39,7 @@ export const getTodos = async (userId: number): Promise<Todo[]> => {
   return res.json();
 };
 
-// export const getTodo = async (todoId: number) => {}
+export const getPhotos = async (albumId: number): Promise<Photo[]> => {
+  const res = await fetch(`${URL}/albums/${albumId}/photos`);
+  return res.json();
+};
