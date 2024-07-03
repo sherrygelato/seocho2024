@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { TIMES } from '../../../../utils/route-utils';
+import { TIMES } from '../../../../lib/route-utils';
 
 type Params = {
   params: {
