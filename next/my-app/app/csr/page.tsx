@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { getUsers, User } from '../../lib/placeholder';
@@ -25,7 +26,13 @@ export default function CSR() {
   return (
     <>
       <h1>This is CRS Page!! {dtStr}</h1>
-      <Link href='/'>GO HOME</Link>
+
+      <Button variant='outline'>
+        <Link href='/'>GO HOME</Link>
+      </Button>
+      <Button variant='link'>
+        <Link href='/'>GO HOME</Link>
+      </Button>
 
       <div>
         <h3>Users List</h3>
