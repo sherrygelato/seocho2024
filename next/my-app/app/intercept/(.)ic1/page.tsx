@@ -1,3 +1,3 @@
-export default function InterceptorIc1Page() {
-  return <>Interceptor ic1 Page</>;
+export default function Interceptor1depthIc1Page() {
+  return <>1depth ic1 Page</>;
 }

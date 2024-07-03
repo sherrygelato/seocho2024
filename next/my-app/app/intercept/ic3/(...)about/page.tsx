@@ -1,3 +1,3 @@
-export default function Ic3AboutPage() {
-  return <>ic3 ABOUT Page</>;
+export default function Ic33depthAboutPage() {
+  return <>ic3 3deptsh about Page</>;
 }

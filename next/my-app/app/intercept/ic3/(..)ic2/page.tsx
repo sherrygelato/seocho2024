@@ -1,3 +1,3 @@
-export default function Ic3Page() {
-  return <>ic3 IC2 Page</>;
+export default function Ic32depthIc2Page() {
+  return <>Ic3 2depth IC2 Page</>;
 }
