@@ -39,6 +39,12 @@ export const getTodos = async (userId: number): Promise<Todo[]> => {
   return res.json();
 };
 
+export const getTodo = async (todoId: number): Promise<Todo> => {
+  const res = await fetch(`${URL}/todos/${todoId}`); // SSR 그때그때 매번 다르게
+
+  return res.json();
+};
+
 export const getPhotos = async (albumId: number): Promise<Photo[]> => {
   const res = await fetch(`${URL}/albums/${albumId}/photos`);
   return res.json();

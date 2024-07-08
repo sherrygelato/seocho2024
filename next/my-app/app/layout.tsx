@@ -35,6 +35,9 @@ export default function RootLayout({
           <Button variant='link'>
             <Link href='/photos'>Photos</Link>
           </Button>
+          <Button variant='link'>
+            <Link href='/todos'>Todos</Link>
+          </Button>
         </div>
         <div className='container flex min-h-screen flex-col items-center justify-between p-24'>
           <div className='mt-7'>{children}</div>
