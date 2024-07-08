@@ -40,8 +40,8 @@ export const getTodos = async (userId: number): Promise<Todo[]> => {
 };
 
 export const getTodo = async (todoId: number): Promise<Todo> => {
-  const res = await fetch(`${URL}/todos/${todoId}`); // SSR 그때그때 매번 다르게
-
+  const res = await fetch(`${URL}/todos/${todoId}`);
+  // console.log('🚀  res:', res);
   return res.json();
 };
 
