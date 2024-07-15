@@ -12,3 +12,26 @@ content-type: application/json
     "owner": 1,
     "clickdel": 0
 }
+
+### get a book
+GET {{api}}/books/5
+
+### update book
+PATCH {{api}}/books/7
+
+{
+  "title": "TTT",
+  "clickdel": 1
+}
+
+###
+
+PUT {{api}}/books/6
+
+{
+  "title": "SSS",
+  "clickdel": 1
+}
+
+### delete book
+DELETE {{api}}/books/7

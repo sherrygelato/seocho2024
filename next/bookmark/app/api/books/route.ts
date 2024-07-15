@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
   const { title, owner } = await req.json();
 
-  const [rows] = await query(`insert into Book(title, owner) value(?, ?)`, [
+  const rows = await query(`insert into Book(title, owner) value(?, ?)`, [
     title,
     owner,
   ]);
