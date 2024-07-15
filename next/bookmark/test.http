@@ -1,0 +1,14 @@
+@api=http://localhost:3000/api
+
+### get books
+GET {{api}}/books?userId=1
+
+### create book
+POST {{api}}/books
+content-type: application/json
+
+{
+    "title": "Test Book",
+    "owner": 1,
+    "clickdel": 0
+}
