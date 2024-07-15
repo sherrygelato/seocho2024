@@ -60,8 +60,10 @@ create table Mark (
 	image varchar(512) not null comment 'mark image - og: image',
     isdel boolean not null default 0 comment 'is delete',
 	deldt varchar(15) null comment 'mark deleted date',
-    foreign key fk_book(id) references Book(id) -- fk_book_book
+    foreign key fk_book_Book(book) references Book(id) -- fk_book_book
 		on delete cascade
 );
+
+alter table Mark modify image varchar(512) null comment 'mark image - og: image';
 
 desc Mark;
