@@ -36,3 +36,50 @@ PUT {{api}}/books/6
 
 ### delete book
 DELETE {{api}}/books/12
+
+# =========================================
+
+### get marks
+GET {{api}}/marks
+
+
+###
+# insert mark testing
+POST {{api}}/marks 
+
+{
+  "book": 1,
+  "title": "Test Book12",
+  "descript": "Test Book12",
+  "url": "url",
+  "image": "image",
+}
+
+### get a mark
+GET {{api}}/marks/3
+
+### update mark
+PATCH {{api}}/marks/5
+
+{
+  "book": 1,
+  "title": "121212121212121",
+  "descript": "1212121212121",
+  "url": "url",
+  "image": "image",
+}
+
+###
+
+PUT {{api}}/marks/6
+
+{
+  "book": 1,
+  "title": "343434343434",
+  "descript": "343434343434",
+  "url": "url",
+  "image": "image",
+}
+
+### delete mark
+DELETE {{api}}/marks/12

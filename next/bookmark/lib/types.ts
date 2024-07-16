@@ -17,7 +17,7 @@ export type Mark = {
   book: number;
   url: string;
   title: string;
-  descript: string;
-  image: string;
+  descript?: string;
+  image?: string;
   isdel: boolean;
 };
