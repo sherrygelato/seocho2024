@@ -1,23 +1,24 @@
 @api=http://localhost:3000/api
 
 ### get books
-GET {{api}}/books?userId=1
+GET {{api}}/books?userId=4
 
-### create book
-POST {{api}}/books
-content-type: application/json
+
+###
+# insert book testing
+POST {{api}}/books 
 
 {
-    "title": "Test Book",
-    "owner": 1,
-    "clickdel": 0
+  "title": "Test Book12",
+  "owner": 4,
+  "clickdel": 0
 }
 
 ### get a book
-GET {{api}}/books/5
+GET {{api}}/books/3
 
 ### update book
-PATCH {{api}}/books/7
+PATCH {{api}}/books/5
 
 {
   "title": "TTT",
@@ -34,4 +35,4 @@ PUT {{api}}/books/6
 }
 
 ### delete book
-DELETE {{api}}/books/7
+DELETE {{api}}/books/12
