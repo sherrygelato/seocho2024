@@ -1,19 +1,19 @@
-import { RefObject, useId } from 'react';
+import { useId } from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
 type Props = {
   label: string;
   value: string;
+  type: string;
   readOnly?: boolean;
-  ref?: RefObject<HTMLInputElement>;
 };
 
-export default function LabelInput({
+export default function LabelTypeInput({
   label,
   value,
-  readOnly = true,
-  ref,
+  type,
+  readOnly = false,
 }: Props) {
   const id = useId();
   return (
@@ -23,13 +23,10 @@ export default function LabelInput({
       </Label>
       <Input
         id={id}
-        type='text'
+        type={type}
+        name={value}
         readOnly={readOnly}
-        disabled={true}
         className='col-span-3'
-        name={label}
-        placeholder={value}
-        ref={ref}
       />
     </div>
   );

@@ -19,19 +19,32 @@ export default async function MyPage() {
 
   return (
     <div className='flex flex-col mx-auto max-w-md my-10'>
-      <h1 className='text-3xl text-slate-700'>My Profile</h1>
-      <div className='flex flex-row'>
-        <Image src={image || ''} alt={email || ''} width={100} height={100} />
-        <form className='flex flex-col w-full' action={logout}>
+      <div>
+        <h1 className='text-center text-3xl text-slate-700'>My Profile</h1>
+      </div>
+      <div className='grid grid-cols-6'>
+        <div className='col-span-2'>
+          <Image
+            src={image || ''}
+            alt={email || ''}
+            width={100}
+            height={100}
+            className='h-full w-full p-3'
+          />
+        </div>
+        <form className='col-span-4' action={logout}>
           <LabelInput label='Nickname' value={name || ''} readOnly={true} />
           <LabelInput label='email' value={email || ''} readOnly={true} />
+          <div className='col-span-3'></div>
           <Button variant='ghost'>SignOut</Button>
         </form>
       </div>
       <hr className='mt-10' />
-      <pre className='text-sm text-slate-400'>
-        session: {JSON.stringify(session, null, '  ')}
-      </pre>
+      {/* <div>
+        <pre className='text-sm text-slate-400'>
+          session: {JSON.stringify(session, null, '  ')}
+        </pre>
+      </div> */}
     </div>
   );
 }

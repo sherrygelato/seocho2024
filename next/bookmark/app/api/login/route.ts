@@ -1,33 +1,19 @@
 import { execute, query } from '@/lib/db';
 import { UserRowData } from '@/lib/types';
-import { hash } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 
-// export default async function GET(req: NextRequest) {
-//   const { searchParams } = req.nextUrl;
-//   const email = searchParams.get('email');
-
-//   const [user] = await query<UserRowData>(
-//     'select id, nickname, email from User where email = ?',
-//     [email]
-//   );
-
-//   // const { id, nickname } = user;
-
-//   return NextResponse.json({ id, nickname, email });
-// }
-
 export async function POST(req: NextRequest) {
-  const { nickname, email, passwd } = await req.json();
-  console.table({ nickname, email, passwd });
+  const { email, passwd } = await req.json();
+  console.table({ email, passwd });
 
-  const hashedPasswd = await hash(passwd, 10);
+  const hashedPasswd = await compare(passwd, '');
   console.log('🚀  hashedPasswd:', hashedPasswd);
 
   try {
     const rsh = await execute(
-      'insert into User(nickname, email, passwd) values(?,?,?)',
-      [nickname, email, hashedPasswd]
+      'select email, passwd from User where email = ?, passwd = ?',
+      [email, hashedPasswd]
     );
 
     const [user] = await query<UserRowData>('select * from User where id = ?', [
