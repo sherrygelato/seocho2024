@@ -44,11 +44,13 @@ export default function RegistPage() {
   };
 
   return (
-    <div className='flex flex-col mx-auto max-w-md text-center mt-10'>
+    <div className='flex flex-col mx-auto max-w-md text-center mt-5'>
       <h1 className='text-3ml'>Sign up</h1>
-      <form onSubmit={register} className=''>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <Label htmlFor='nickname'>nickname</Label>
+      <form onSubmit={register} className='mt-5'>
+        <div className='grid grid-cols-4 items-center gap-4 m-3'>
+          <Label className='text-right' htmlFor='nickname'>
+            nickname
+          </Label>
           <Input
             id='nickname'
             name='nickname'
@@ -57,8 +59,10 @@ export default function RegistPage() {
             className='col-span-3'
           />
         </div>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <Label htmlFor='email'>email</Label>
+        <div className='grid grid-cols-4 items-center gap-4 m-3'>
+          <Label className='text-right' htmlFor='email'>
+            email
+          </Label>
           <Input
             id='email'
             name='email'
@@ -67,20 +71,24 @@ export default function RegistPage() {
             className='col-span-3'
           />
         </div>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <Label htmlFor='password'>password</Label>
+        <div className='grid grid-cols-4 items-center gap-4 m-3'>
+          <Label className='text-right' htmlFor='passwd'>
+            password
+          </Label>
           <Input
-            id='password'
-            name='password'
+            id='passwd'
+            name='passwd'
             type='password'
             className='col-span-3'
           />
         </div>
-        <div className='grid grid-cols-4 items-center gap-4'>
-          <Label htmlFor='password2'>password</Label>
+        <div className='grid grid-cols-4 items-center gap-4 m-3'>
+          <Label className='text-right' htmlFor='passwd2'>
+            password
+          </Label>
           <Input
-            id='password2'
-            name='password2'
+            id='passwd2'
+            name='passwd2'
             type='password'
             className='col-span-3'
           />
@@ -94,9 +102,12 @@ export default function RegistPage() {
           </Alert>
         )}
 
-        <Button variant={'secondary'} type='submit' className='1/2'>
-          Register
-        </Button>
+        <div className='grid grid-cols-4 items-center gap-4 m-3'>
+          <div className='col-span-3'></div>
+          <Button variant={'secondary'} type='submit'>
+            Register
+          </Button>
+        </div>
       </form>
     </div>
   );
