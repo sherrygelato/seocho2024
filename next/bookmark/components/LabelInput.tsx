@@ -12,7 +12,7 @@ export default function LabelInput({ label, value, readOnly }: Props) {
   const id = useId();
   return (
     <div className='flex justify-between'>
-      <Label className='flex-1' htmlFor={id}>
+      <Label className='flex' htmlFor={id}>
         {label}
       </Label>
       <Input
@@ -20,7 +20,7 @@ export default function LabelInput({ label, value, readOnly }: Props) {
         type='text'
         readOnly={readOnly}
         disabled={true}
-        className='flex-1 border-0 focus:border-0 focus-visible:ring-0'
+        className='flex border-0 focus:border-0 focus-visible:ring-0'
         value={value}
       ></Input>
     </div>
