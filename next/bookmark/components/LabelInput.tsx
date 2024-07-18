@@ -1,4 +1,4 @@
-import { RefObject, useId } from 'react';
+import { ForwardedRef, useId } from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
@@ -6,7 +6,7 @@ type Props = {
   label: string;
   value: string;
   readOnly?: boolean;
-  ref?: RefObject<HTMLInputElement>;
+  ref?: ForwardedRef<HTMLInputElement>;
 };
 
 export default function LabelInput({

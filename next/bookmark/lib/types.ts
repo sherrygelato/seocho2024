@@ -27,9 +27,9 @@ export type Mark = {
   book: number;
   url: string;
   title: string;
-  descript: string;
-  image: string;
-  isdel: boolean;
+  descript?: string;
+  image?: string;
+  isdel?: boolean;
 };
 
 export type MarkRowData = Mark & RowDataPacket;

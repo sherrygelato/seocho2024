@@ -30,7 +30,7 @@ export const query = async <T extends RowDataPacket>(
   try {
     const [rows] = await conn.query<T[]>(sql, params);
     console.table({ rows });
-    return [rows];
+    return rows;
   } catch (error) {
     console.table({ error });
     throw error;
